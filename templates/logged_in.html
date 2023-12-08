@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div>
+  <div>
+    <a href="{{ url_for('home') }}">Home</a>
+  </div>
+  <div>
+    {% for challenge in all_challenges %}
+      <a href="{{ url_for('get_challenge', challenge_num=challenge.number) }}">#{{ challenge.number }}: {{ challenge.name }}</a>
+    {% endfor %}
+  </div>
+</div>
+{% block content %}
+{% endblock %}
+{% endblock %}

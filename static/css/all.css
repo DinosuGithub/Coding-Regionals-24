@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css?family=Dhurjati&display=swap');
+
+* {
+  color: black;
+}
+
+a {
+  color: #0563c7;
+}
+
+body {
+  font-family: 'Dhurjati';
+  font-weight: 30;
+  font-size: 2rem;
+  background-image: url('/static/images/myImage.gif'); 
+  background-repeat: repeat;
+}
+
+input {
+  font-family: 'Dhurjatti';
+}
+
+.username-input {
+  text-transform: lowercase;
+}

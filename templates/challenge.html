@@ -1,0 +1,37 @@
+{% extends 'logged_in.html' %}
+
+{% block content %}
+
+<h1>Challenge {{ challenge_data.num }}: {{ challenge_data.name }}</h1>
+
+<div>
+  <div>
+    <span>Description:</span>
+    <span>{{ challenge_data.description }}</span>
+  </div>
+
+  <div>
+    <span>Encrypted message:</span>
+    <span>{{ challenge_data.message }}</span>
+  </div>
+
+  <div>
+    <span>Hint:</span>
+    <span>{{ challenge_data.hint|safe }}</span>
+  </div>
+</div>
+
+<div>
+  <form id="challenge-submission" action="{{ url_for('submit_challenge', challenge_num=challenge_data.num) }}" method="POST">
+    Enter your decoded message:
+    <input name="submission"></input>
+  </form>
+</div>
+
+<div id="correct-reveal" style="display: none;">
+  <span id="correctness-message"></span>
+</div>
+
+<script src="{{ url_for('static', filename='js/challenge.js') }}"></script>
+
+{% endblock %}

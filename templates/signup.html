@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<form action="{{ url_for('signup') }}" method="POST">
+  Sign up username:
+  <input class="username-input" name="username"></input>
+</form>
+
+<div>
+  Already have an account? <a href="{{ url_for('login') }}">Log in</a>
+</div>
+
+{% endblock %}
