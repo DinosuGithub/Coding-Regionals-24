@@ -1,5 +1,18 @@
 alphabet = list('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
 
+def normalize(text, allowed_chars=alphabet + [' ']):
+  text = text.upper()
+  
+  normalized = ''
+  for char in text:
+    if char in allowed_chars:
+      normalized += char
+
+  return normalized
+
+def check_answer(response, answer):
+  return normalize(response) == normalize(answer)
+
 # Substitution ciphers
 
 # Function to handle encoding/decoding for substitution ciphers
@@ -80,6 +93,35 @@ def decode_polybius_cipher(text):
 
 # Non-substitution ciphers
 
+# Message to concatenated A1Z26
+def message_to_int(message):
+  message = message.upper()
+  message_int = ''
+  for char in message:
+    if char in alphabet:
+      message_int += str(alphabet.index(char) + 1).rjust(2, '0')
+  
+  return int(message_int)
+
+# Concatenated A1Z26 to message
+def int_to_message(integer):
+  integer = str(integer)
+  return ''.join([alphabet[int(integer[i:i + 2]) - 1] for i in range(0, len(integer), 2)])
+
+
+def generate_lcg_random(seed, a, c, m):
+  return (a * seed + c) % m
+
+def encode_lcg_message(text, a, c, m, iterations):
+  message_int = message_to_int(text)
+  
+  for _ in range(iterations):
+    message_int = generate_lcg_random(message_int, a, c, m)
+    print(message_int)
+
+  return message_int
+
+
 class RSASender:
   def __init__(self, p, q):
     self.p = p
@@ -127,16 +169,6 @@ class RSASender:
 
   def decode_integer_message(self, message):
     return (message ** self.private_exponent) % self.public_modulus
-
-# Message to concatenated A1Z26
-def message_to_int(message):
-  message = message.upper()
-  return int(''.join([str(alphabet.index(char) + 1).rjust(2, '0') for char in message]))
-
-# Concatenated A1Z26 to message
-def int_to_message(integer):
-  integer = str(integer)
-  return ''.join([alphabet[int(integer[i:i + 2]) - 1] for i in range(0, len(integer), 2)])
 
 # public_key is of the form (modulus, exponent)
 def encode_rsa_message(message, public_key):

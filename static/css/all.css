@@ -2,6 +2,8 @@
 
 :root {
   --red-background: #ffe5e5;
+  --input-padding: 0.5rem;
+  --input-border-width: 2px;
 }
 
 * {
@@ -99,6 +101,11 @@ input, button {
   border-radius: 0.5rem;
 }
 
+input {
+  padding: var(--input-padding);
+  border-width: var(--input-border-width);
+}
+
 button:not([disabled]) {
   cursor: pointer;
   background: lightblue;
@@ -117,9 +124,18 @@ button:not([disabled]) {
   display: block;
 }
 
+.completed-challenge-link {
+  color: #999999;
+}
+
 #submission-box {
   margin-top: 1rem;
   margin-bottom: 1rem;
+}
+
+input#submission-input {
+  padding: 0.5rem;
+  width: calc(100% - 2 * (var(--input-padding) + var(--input-border-width)));
 }
 
 #correctness-message {

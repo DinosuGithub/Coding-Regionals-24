@@ -3,6 +3,7 @@ from db import login_data
 from db import challenge_data
 import os
 import challenges
+import encryption
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY')
@@ -103,7 +104,7 @@ def submit_challenge(challenge_num):
   
   challenge_info = challenges.challenges[challenge_num - 1]
   
-  if submission.upper() == challenge_info['plaintext'].upper():
+  if encryption.check_answer(submission, challenge_info['plaintext']):
     challenge_data.add_completed_challenge(session['user_id'], challenge_num)
     return {'is_correct': True}
   
