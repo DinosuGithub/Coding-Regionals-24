@@ -21,15 +21,17 @@ body {
   
   font-weight: 30;
   font-size: 2rem;
-  
-  background-image: url('/static/images/myImage.gif'); 
-  background-repeat: repeat;
 }
 
 #main-sections {
   display: flex;
   flex-wrap: nowrap;
   align-content: stretch;
+}
+
+#not-logged-in-main {
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 #flashed-messages {
@@ -53,6 +55,7 @@ body {
 
 h1 {
   margin: 0;
+  text-align: center;
 }
 
 div.page-section {
@@ -106,6 +109,12 @@ input {
   border-width: var(--input-border-width);
 }
 
+button[type="submit"] {
+  margin-top: 1rem;
+  display: block;
+  width: 100%;
+}
+
 button:not([disabled]) {
   cursor: pointer;
   background: lightblue;
@@ -124,7 +133,7 @@ button:not([disabled]) {
   display: block;
 }
 
-.completed-challenge-link {
+.challenge-link.completed {
   color: #999999;
 }
 
@@ -151,4 +160,18 @@ input#submission-input {
 #correctness-message.incorrect {
   border: 2px solid red;
   background: var(--red-background);
+}
+
+.username-entry-form {
+  width: fit-content;
+  margin: auto;
+}
+
+.username-entry-form > * {
+  width: fit-content;
+  margin: auto;
+}
+
+#alternate-sign-in-choice {
+  margin-top: 1.5rem;
 }

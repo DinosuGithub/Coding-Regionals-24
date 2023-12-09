@@ -9,7 +9,7 @@
     <div class="page-nav-section">
       {% for challenge in all_challenges %}
         <div class="nav-link-container">
-          <a href="{{ url_for('get_challenge', challenge_num=challenge.number) }}" {% if challenge.number in completed_challenges %} class="completed-challenge-link" {% endif %}>#{{ challenge.number }}: {{ challenge.name }}</a>
+          <a href="{{ url_for('get_challenge', challenge_num=challenge.number) }}" class="challenge-link {% if challenge.number in completed_challenges %}completed{% endif %}">#{{ challenge.number }}: {{ challenge.name }}</a>
         </div>
       {% endfor %}
     </div>

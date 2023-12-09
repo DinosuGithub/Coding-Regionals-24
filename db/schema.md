@@ -14,6 +14,7 @@
   {  
     _id: <ObjectId>,
     user_id: <String>,
-    completed: [<Int>]
+    completed: [<Int>],
+    scores: {<String>: <Int>}
   }
 `

@@ -1,7 +1,10 @@
-{% extends 'base.html' %}
+{% extends 'not_logged_in.html' %}
 
-{% block body %}
+{% block content %}
 
-<span>Welcome to the challenge! (You still need to log in.)</span>
+<h1>Good day, candidate.</h1>
+<div>
+  Welcome to the Teaching Security Administration Cryptography League Recruiting Assessment (TSACLeRA). Here you will have the opportunity to prove yourself worthy of joining one of the world's most exclusive cryptography agencies. Don't get your hopes up, though. The cryptography challenges you encounter here will rigorously test you to determine if you are fit for our very high standards. If you're up for the challenge, <a href="{{ url_for('signup') }}">sign up</a> or <a href="{{ url_for('login') }}">log in</a>.
+</div>
 
 {% endblock %}

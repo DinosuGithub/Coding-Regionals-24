@@ -13,7 +13,7 @@ app.secret_key = os.environ.get('SECRET_KEY')
 def before_request():
   allowed_endpoints = ['static', 'home', 'login', 'signup']
   if 'user_id' not in session and request.endpoint not in allowed_endpoints:
-    return redirect(url_for('login'))
+    return redirect(url_for('home'))
 
 
 @app.context_processor
@@ -22,13 +22,15 @@ def send_basic_info():
   
   session_username = ''
   completed_challenges = []
+  incomplete_challenges = []
   
   if 'user_id' in session:
     user_id = session['user_id']
     session_username = login_data.username_by_id(user_id)
     completed_challenges = challenge_data.completed_challenges(user_id)
+    incomplete_challenges = challenge_data.incomplete_challenges(user_id)
 
-  return dict(username=session_username, all_challenges=all_challenges, completed_challenges=completed_challenges)
+  return {'username': session_username, 'all_challenges': all_challenges, 'completed_challenges': completed_challenges, 'incomplete_challenges': incomplete_challenges}
 
 
 @app.route('/')
@@ -79,6 +81,16 @@ def signup():
     return redirect(url_for('home'))
 
 
+def sendable_challenge_data(challenge_num):
+  data = challenges.challenges[challenge_num - 1]
+  return {
+    'num': challenge_num,
+    'name': data['name'],
+    'description': data['description'],
+    'message': data['encode'](data['plaintext']),
+    'hint': data['hint']
+  }
+
 @app.route('/challenge/<int:challenge_num>')
 def get_challenge(challenge_num):
   if challenge_num < 1:
@@ -88,27 +100,37 @@ def get_challenge(challenge_num):
   if challenge_num in completed:
     flash('You have already completed this challenge.')
   
-  data = challenges.challenges[challenge_num - 1]
-  return render_template('challenge.html', challenge_data={
-    'num': challenge_num,
-    'name': data['name'],
-    'description': data['description'],
-    'message': data['encode'](data['plaintext']),
-    'hint': data['hint']
-  })
+  
+  return render_template('challenge.html', challenge_data=sendable_challenge_data(challenge_num), score=challenge_data.challenge_score(session['user_id'], challenge_num, 0))
 
 
 @app.route('/challenge/<int:challenge_num>/submit', methods=['POST'])
 def submit_challenge(challenge_num):
   submission = request.form.get('submission')
+
+  user_id = session['user_id']
   
   challenge_info = challenges.challenges[challenge_num - 1]
   
   if encryption.check_answer(submission, challenge_info['plaintext']):
-    challenge_data.add_completed_challenge(session['user_id'], challenge_num)
+    challenge_data.add_completed_challenge(user_id, challenge_num)
+
+    # Make sure score is registered
+    score = challenge_data.challenge_score(user_id, challenge_num, 0)
+    challenge_data.update_user_score(user_id, challenge_num, score)
+    
     return {'is_correct': True}
+
+  if challenge_num not in challenge_data.completed_challenges(user_id):
+    score = challenge_data.challenge_score(user_id, challenge_num, 0)
+    challenge_data.update_user_score(user_id, challenge_num, score + 1)
   
   return {'is_correct': False}
+
+
+@app.route('/challenge/<int:challenge_num>/leaderboard')
+def challenge_leaderboard(challenge_num):
+  return render_template('challenge_leaderboard.html', leaderboard=challenge_data.challenge_leaderboard(challenge_num), challenge_data=sendable_challenge_data(challenge_num))
 
 
 app.run(host='0.0.0.0', port=8080, debug=True)

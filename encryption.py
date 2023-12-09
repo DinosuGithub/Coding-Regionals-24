@@ -117,7 +117,6 @@ def encode_lcg_message(text, a, c, m, iterations):
   
   for _ in range(iterations):
     message_int = generate_lcg_random(message_int, a, c, m)
-    print(message_int)
 
   return message_int
 

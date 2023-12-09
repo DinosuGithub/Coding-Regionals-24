@@ -4,6 +4,11 @@
 
 <h1>Challenge {{ challenge_data.num }}: {{ challenge_data.name }}</h1>
 
+<div style="margin-bottom: 1rem;">
+  <div>You submitted <span id="score-number-text">{{ score }}</span> incorrect answer<span id="score-number-pluralize">{% if score != 1 %}s{% endif %}</span><span id="score-number-end-statement" {% if challenge_data.num not in completed_challenges %}style="display: none;"{% endif %}> before answering correctly</span>.</div>
+  <a href="{{ url_for('challenge_leaderboard', challenge_num=challenge_data.num) }}" target="_blank">Leaderboard</a>
+</div>
+
 <div>
   <div class="page-section">
     <span>Description:</span>
@@ -37,5 +42,8 @@
 </div>
 
 <script src="{{ url_for('static', filename='js/challenge.js') }}"></script>
-
+<script>
+  let challengeNum = {{ challenge_data.num }};
+  let challengeIsCompleted = {{ (challenge_data.num in completed_challenges)|int }};
+</script>
 {% endblock %}

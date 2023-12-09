@@ -7,7 +7,7 @@ let showHintButton = document.querySelector('#show-hint-button');
 let hintBox = document.querySelector('#hint-box');
 let hintShown = false;
 
-const hintDelay = 5;
+const hintDelay = 60;
 
 submissionForm.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -22,14 +22,26 @@ submissionForm.addEventListener('submit', (event) => {
     .then((data) => {
       let isCorrect = data.is_correct;
       
-      correctnessMessage.textContent = isCorrect ? 'Nicely done!' : 'That is incorrect.';
+      correctnessMessage.textContent = isCorrect ? 'Nicely done! Challenge marked as complete.' : 'That is incorrect.';
 
       if (isCorrect) {
+        challengeIsCompleted = 1;
+        
         correctnessMessage.classList.remove('incorrect');
         correctnessMessage.classList.add('correct');
+
+        document.querySelectorAll('.challenge-link')[challengeNum - 1].classList.add('completed');
+
+        document.querySelector('#score-number-end-statement').style.display = '';
       } else {
         correctnessMessage.classList.remove('correct');
         correctnessMessage.classList.add('incorrect');
+      }
+
+      if (!challengeIsCompleted) {
+        scoreNumberElt = document.querySelector('#score-number-text');
+        scoreNumberElt.textContent ++;
+        document.querySelector('#score-number-pluralize').textContent = scoreNumberElt.textContent === '1' ? '' : 's';
       }
 
       correctRevealBox.style.display = '';

@@ -1,14 +1,17 @@
-{% extends 'base.html' %}
+{% extends 'not_logged_in.html' %}
 
-{% block body %}
+{% block content %}
 
-<form action="{{ url_for('signup') }}" method="POST">
+<h1>Select a username</h1>
+
+<form action="{{ url_for('signup') }}" class="username-entry-form" method="POST">
   Sign up username:
   <input class="username-input" name="username"></input>
-</form>
+  <button type="submit">Create account</button>
 
-<div>
-  Already have an account? <a href="{{ url_for('login') }}">Log in</a>
-</div>
+  <div id="alternate-sign-in-choice">
+    Already have an account? <a href="{{ url_for('login') }}">Log in</a>
+  </div>
+</form>
 
 {% endblock %}
