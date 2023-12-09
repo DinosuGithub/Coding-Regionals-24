@@ -5,25 +5,29 @@
 <h1>Challenge {{ challenge_data.num }}: {{ challenge_data.name }}</h1>
 
 <div>
-  <div>
+  <div class="page-section">
     <span>Description:</span>
-    <span>{{ challenge_data.description }}</span>
+    <span>{{ challenge_data.description|safe }}</span>
   </div>
 
-  <div>
+  <div class="page-section">
     <span>Encrypted message:</span>
     <span>{{ challenge_data.message }}</span>
   </div>
 
-  <div>
-    <span>Hint:</span>
-    <span>{{ challenge_data.hint|safe }}</span>
+  <div class="page-section">
+    <button disabled id="show-hint-button"></button>
+    
+    <div id="hint-box" style="display: none;">
+      <span>Hint:</span>
+      <span>{{ challenge_data.hint|safe }}</span>
+    </div>
   </div>
 </div>
 
-<div>
+<div id="submission-box">
   <form id="challenge-submission" action="{{ url_for('submit_challenge', challenge_num=challenge_data.num) }}" method="POST">
-    Enter your decoded message:
+    Enter the decoded message:
     <input name="submission"></input>
   </form>
 </div>

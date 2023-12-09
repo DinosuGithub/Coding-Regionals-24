@@ -11,9 +11,9 @@
   {% endblock %}
 </head>
 <body>
-  <div class="flashed-messages">
+  <div id="flashed-messages">
     {% for message in get_flashed_messages() %}
-      <span>{{ message }}</span>
+      <div class="flashed-message">{{ message }}</div>
     {% endfor %}
   </div>
   

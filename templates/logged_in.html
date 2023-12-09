@@ -1,16 +1,23 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<div>
-  <div>
-    <a href="{{ url_for('home') }}">Home</a>
+<div id="main-sections">
+  <div id="page-nav">
+    <div class="page-nav-section">
+      <a href="{{ url_for('home') }}">Home</a>
+    </div>
+    <div class="page-nav-section">
+      {% for challenge in all_challenges %}
+        <div class="nav-link-container">
+          <a href="{{ url_for('get_challenge', challenge_num=challenge.number) }}">#{{ challenge.number }}: {{ challenge.name }}</a>
+        </div>
+      {% endfor %}
+    </div>
   </div>
-  <div>
-    {% for challenge in all_challenges %}
-      <a href="{{ url_for('get_challenge', challenge_num=challenge.number) }}">#{{ challenge.number }}: {{ challenge.name }}</a>
-    {% endfor %}
+  
+  <div id="page-content">
+    {% block content %}
+    {% endblock %}
   </div>
 </div>
-{% block content %}
-{% endblock %}
 {% endblock %}

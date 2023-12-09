@@ -1,7 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Dhurjati&display=swap');
 
+:root {
+  --red-background: #ffe5e5;
+}
+
 * {
   color: black;
+  
+  font-family: 'Dhurjati';
 }
 
 a {
@@ -9,17 +15,124 @@ a {
 }
 
 body {
-  font-family: 'Dhurjati';
+  padding-bottom: 1rem;
+  
   font-weight: 30;
   font-size: 2rem;
+  
   background-image: url('/static/images/myImage.gif'); 
   background-repeat: repeat;
 }
 
-input {
-  font-family: 'Dhurjatti';
+#main-sections {
+  display: flex;
+  flex-wrap: nowrap;
+  align-content: stretch;
+}
+
+#flashed-messages {
+  display: block;
+}
+
+#page-nav {
+  width: fit-content;
+  height: fit-content;
+  background: #ededed;
+  padding: 1rem;
+  border-radius: 1rem;
+  margin-right: 1rem;
+}
+
+#page-content {
+  max-width: 50rem;
+  margin: auto;
+  margin-top: 0;
+}
+
+h1 {
+  margin: 0;
+}
+
+div.page-section {
+  display: block;
+  border: 2px solid;
+  border-radius: 1rem;
+  padding: 2rem;
+}
+
+div.page-section + div.page-section {
+  margin-top: 1rem;
+}
+
+div.page-nav-section + div.page-nav-section {
+  margin-top: 0;
+  border-top: 2px solid;
+}
+
+.flashed-message {
+  border: 2px solid red;
+  background: var(--red-background);
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+table, tr {
+  border-collapse: collapse;
+  border: 2px solid;
+}
+
+table.bordered-cells td, table.bordered-cells th {
+  border: 2px solid;
+}
+
+td, th {
+  padding: 1rem;
+  text-align: center;
+}
+
+th {
+  background: lightgray;
+}
+
+input, button {
+  font-size: 1.5rem;
+  border-radius: 0.5rem;
+}
+
+button:not([disabled]) {
+  cursor: pointer;
+  background: lightblue;
+}
+
+#show-hint-button {
+  display: block;
+  margin: auto;
 }
 
 .username-input {
   text-transform: lowercase;
+}
+
+.nav-link-container {
+  display: block;
+}
+
+#submission-box {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+#correctness-message {
+  display: block;
+  text-align: center;
+}
+
+#correctness-message.correct {
+  border: 2px solid #2db487;
+  background: #e0ffe0;
+}
+
+#correctness-message.incorrect {
+  border: 2px solid red;
+  background: var(--red-background);
 }
