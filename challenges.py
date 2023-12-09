@@ -12,7 +12,7 @@ lcg_iterations = 10
 rsa_sender = encryption.RSASender(397, 587)
 rsa_public_exponent = rsa_sender.public_exponent_options()[100]
 rsa_public_key = rsa_sender.create_public_key(rsa_public_exponent)
-rsa_private_exponent = rsa_sender.create_private_exponent(rsa_public_key[1])
+rsa_private_exponent = rsa_sender.create_private_exponent(rsa_public_exponent)
 
 challenges = [
   {
@@ -25,7 +25,7 @@ challenges = [
   },
   {
     'name': 'Vigenere Cipher',
-    'description': f'The Vigenere Cipher is like a better version of the Caesar Cipher, where each letter is shifted by a different amount. Here, the key is "{vigenere_key}."',
+    'description': f'The Vigenere Cipher is like applying a different Caesar Cipher encryption to every character. That is, each letter is shifted by a different amount. Here, the key is "{vigenere_key}."',
     'encode': lambda text: encryption.encode_vigenere_cipher(text, vigenere_key),
     'decode': lambda text: encryption.decode_vigenere_cipher(text, vigenere_key),
     'plaintext': 'Vigenere cipher!',
@@ -51,7 +51,7 @@ challenges = [
     'name': 'RSA',
     'description': f'The commander of the administration has sent you an urgent message encrypted with RSA. Use your RSA information to read his instructions. When you have the message in number form, decode it using A1Z26 (ex. 0809 = "hi"). Hint: use <a href="https://www.wolframalpha.com/" target="_blank">Wolfram Alpha</a> for large math computations.<table><tr><td>Private exponent:</td><td>{rsa_private_exponent}</td></tr><tr></tr><tr><td>Public modulus:</td><td>{rsa_public_key[0]}</td></tr><td>Public exponent:</td><td>{rsa_public_key[1]}</td></table>',
     'encode': lambda text: encryption.encode_rsa_message(text, rsa_public_key),
-    'decode': lambda text: encryption.int_to_message(rsa_sender.decode_integer_message(int(text))),
+    'decode': lambda text: encryption.int_to_message(rsa_sender.decode_message(int(text))),
     'plaintext': 'run',
     'hint': 'From the table, the only information you need is your private exponent and public modulus.'
   },

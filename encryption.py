@@ -41,6 +41,7 @@ def handle_cipher(text, key, char_algorithm, char_length=1, non_punctuation=alph
 
   return result
 
+
 def encode_caesar_char(char, offset, encountered_letters):
   return alphabet[(alphabet.index(char.upper()) + offset) % len(alphabet)]
 
@@ -166,10 +167,10 @@ class RSASender:
 
       k += 1
 
-  def decode_integer_message(self, message):
+  def decode_message(self, message):
     return (message ** self.private_exponent) % self.public_modulus
 
-# public_key is of the form (modulus, exponent)
+# Parameter public_key is of the form (modulus, exponent)
 def encode_rsa_message(message, public_key):
   int_message = message_to_int(message)
   return (int_message ** public_key[1]) % public_key[0]
