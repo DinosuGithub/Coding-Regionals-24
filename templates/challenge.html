@@ -31,7 +31,7 @@
 </div>
 
 <div id="submission-box">
-  <form id="challenge-submission" action="{{ url_for('submit_challenge', challenge_num=challenge_data.num) }}" method="POST">
+  <form id="challenge-submission" action="{{ url_for('submit_challenge', challenge_num=challenge_data.num) }}" method="POST" autocomplete="off">
     Enter the decoded message:
     <input name="submission" id="submission-input"></input>
   </form>

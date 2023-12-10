@@ -54,7 +54,7 @@ def challenge_score(user_id, challenge_num, default):
 def challenge_leaderboard(challenge_num):
   data = []
   for user_data in challenge_col.find():
-    if str(challenge_num) in user_data['scores']:
+    if str(challenge_num) in user_data['scores'] and challenge_num in user_data['completed']:
       data.append({
         'username': login_data.username_by_id(user_data['user_id']),
         'score': user_data['scores'][str(challenge_num)]

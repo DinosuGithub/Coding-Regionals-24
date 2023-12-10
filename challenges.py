@@ -45,7 +45,7 @@ challenges = [
     'encode': lambda text: encryption.encode_lcg_message(text, lcg_a, lcg_c, lcg_m, lcg_iterations),
     'decode': None, # This is not a reversible algorithm!
     'plaintext': 'process',
-    'hint': 'It is not easy to reverse this algorithm. Try using brute force.'
+    'hint': 'It is not easy to reverse this algorithm. Try using brute force, since you know the answer is on this page.'
   },
   {
     'name': 'RSA',

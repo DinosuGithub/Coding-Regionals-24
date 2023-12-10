@@ -81,6 +81,13 @@ def signup():
     return redirect(url_for('home'))
 
 
+@app.route('/signout')
+def sign_out():
+  session.clear()
+  flash('You have signed out.')
+  return redirect(url_for('home'))
+
+
 def sendable_challenge_data(challenge_num):
   data = challenges.challenges[challenge_num - 1]
   return {

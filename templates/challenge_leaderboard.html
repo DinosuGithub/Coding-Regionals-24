@@ -5,18 +5,21 @@
 <h1>Leaderboard for {{ challenge_data.name }}</h1>
 
 <div style="width: fit-content; margin: auto;">
-  <table class="bordered-cells">
-    <tr><th>Rank</th><th>Username</th><th>Wrong submissions</th></tr>
-    {% for item in leaderboard %}
-      <tr><td>{{ loop.index }}</td><td>{{ item.username }}</td><td>{{ item.score }}</td></tr>
-    {% endfor %}
-  </table>
+  <div style="margin-bottom: 2rem;">People appear here after completing the challenge.</div>
+  <div style="width: fit-content; margin: auto;">
+    <table class="bordered-cells">
+      <tr><th>Rank</th><th>Username</th><th>Wrong submissions</th></tr>
+      {% for item in leaderboard %}
+        <tr><td>{{ loop.index }}</td><td>{{ item.username }}</td><td>{{ item.score }}</td></tr>
+      {% endfor %}
+    </table>
 
-  {% if leaderboard|length == 0 %}
-    <div>
-      Nobody has completed this challenge yet!
-    </div>
-  {% endif %}
+    {% if leaderboard|length == 0 %}
+      <div>
+        Nobody has completed this challenge yet!
+      </div>
+    {% endif %}
+  </div>
 </div>
 
 {% endblock %}
