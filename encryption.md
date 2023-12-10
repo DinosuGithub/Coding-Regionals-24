@@ -2,7 +2,7 @@ This is documentation for [encryption.py](/encryption.py)
 
 # Encoding/Decoding Examples
 Import the module:
-```python
+``` python
 import encryption
 ```
 
