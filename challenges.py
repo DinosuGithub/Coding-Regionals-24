@@ -28,7 +28,7 @@ challenges = [
     'description': f'The Vigenere Cipher is like applying a different Caesar Cipher encryption to every character. That is, each letter is shifted by a different amount, determined by a different letter in the key. Here, the key is "{vigenere_key}."',
     'encode': lambda text: encryption.encode_vigenere_cipher(text, vigenere_key),
     'decode': lambda text: encryption.decode_vigenere_cipher(text, vigenere_key),
-    'plaintext': 'Vigenere cipher!',
+    'plaintext': 'Though Giovan Battista Bellaso originally invented the cipher, it was named after Blaise de Vigenere.',
     'hint': f'The word "hello" encrypted with a key of "dog" becomes "{encryption.encode_vigenere_cipher("hello", "dog")}."'
   },
   {
@@ -36,7 +36,7 @@ challenges = [
     'description': 'The Polybius Square cipher is a substitution cipher encoded using a 5x5 grid of letters. I and J are encoded the same way. Determine how this encoding works, and use it to decode the encrypted message.',
     'encode': lambda text: encryption.encode_polybius_cipher(text),
     'decode': lambda text: encryption.decode_polybius_cipher(text),
-    'plaintext': 'Polybius Square is cool!',
+    'plaintext': 'The next cipher will be much more modern.',
     'hint': 'This table is used to encode the Polybius cipher: <table class="bordered-cells" style="line-height: 1.5rem;"><tr><th></th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr><tr><th>1</th><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td></tr><tr><th>2</th><td>F</td><td>G</td><td>H</td><td>I/J</td><td>K</td></tr><tr><th>3</th><td>L</td><td>M</td><td>N</td><td>O</td><td>P</td></tr><tr><th>4</th><td>Q</td><td>R</td><td>S</td><td>T</td><td>U</td></tr><tr><th>5</th><td>V</td><td>W</td><td>X</td><td>Y</td><td>Z</td></tr></table>'
   },
   {
