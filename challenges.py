@@ -17,7 +17,7 @@ rsa_private_exponent = rsa_sender.create_private_exponent(rsa_public_exponent)
 challenges = [
   {
     'name': 'Caesar Cipher',
-    'description': 'The Caesar Cipher shifts all letters forward in the alphabet a fixed number of places.',
+    'description': 'Here is a simple challenge to start you off. The Caesar Cipher shifts all letters forward a fixed number of places in the alphabet. Figure out what this shift amount is for the encrypted message below, and use it to decode the answer.',
     'encode': lambda text: encryption.encode_caesar_cipher(text, caesar_offset),
     'decode': lambda text: encryption.decode_caesar_cipher(text, caesar_offset),
     'plaintext': 'Welcome to the Teaching Security Administration Cryptography League!',
@@ -25,7 +25,7 @@ challenges = [
   },
   {
     'name': 'Vigenere Cipher',
-    'description': f'The Vigenere Cipher is like applying a different Caesar Cipher encryption to every character. That is, each letter is shifted by a different amount. Here, the key is "{vigenere_key}."',
+    'description': f'The Vigenere Cipher is like applying a different Caesar Cipher encryption to every character. That is, each letter is shifted by a different amount, determined by a different letter in the key. Here, the key is "{vigenere_key}."',
     'encode': lambda text: encryption.encode_vigenere_cipher(text, vigenere_key),
     'decode': lambda text: encryption.decode_vigenere_cipher(text, vigenere_key),
     'plaintext': 'Vigenere cipher!',
@@ -33,7 +33,7 @@ challenges = [
   },
   {
     'name': 'Polybius Square',
-    'description': 'The Polybius Square cipher is a substitution cipher encoded using a grid of letters. I and J are encoded the same way.',
+    'description': 'The Polybius Square cipher is a substitution cipher encoded using a 5x5 grid of letters. I and J are encoded the same way. Determine how this encoding works, and use it to decode the encrypted message.',
     'encode': lambda text: encryption.encode_polybius_cipher(text),
     'decode': lambda text: encryption.decode_polybius_cipher(text),
     'plaintext': 'Polybius Square is cool!',
@@ -45,11 +45,11 @@ challenges = [
     'encode': lambda text: encryption.encode_lcg_message(text, lcg_a, lcg_c, lcg_m, lcg_iterations),
     'decode': None, # This is not a reversible algorithm!
     'plaintext': 'process',
-    'hint': 'It is not easy to reverse this algorithm. Try using brute force, since you know the answer is on this page.'
+    'hint': 'It is not easy to reverse this algorithm. Try using brute force, since you know the answer is on this page. Remember that incorrect entries are recorded and make your score worse!'
   },
   {
     'name': 'RSA',
-    'description': f'The commander of the administration has sent you an urgent message encrypted with RSA. Use your RSA information to read his instructions. When you have the message in number form, decode it using A1Z26 (ex. 0809 = "hi"). Hint: use <a href="https://www.wolframalpha.com/" target="_blank">Wolfram Alpha</a> for large math computations.<table><tr><td>Private exponent:</td><td>{rsa_private_exponent}</td></tr><tr></tr><tr><td>Public modulus:</td><td>{rsa_public_key[0]}</td></tr><td>Public exponent:</td><td>{rsa_public_key[1]}</td></table>',
+    'description': f'The commander of the administration has sent you an urgent message encrypted with RSA. Use your private and public RSA information below to read his instructions. When you have the message in number form, decode it using A1Z26 (ex. 0809 = "hi"). Hint: use <a href="https://www.wolframalpha.com/" target="_blank">Wolfram Alpha</a> for large math computations.<table><tr><td>Private exponent:</td><td>{rsa_private_exponent}</td></tr><tr></tr><tr><td>Public modulus:</td><td>{rsa_public_key[0]}</td></tr><td>Public exponent:</td><td>{rsa_public_key[1]}</td></table>',
     'encode': lambda text: encryption.encode_rsa_message(text, rsa_public_key),
     'decode': lambda text: encryption.int_to_message(rsa_sender.decode_message(int(text))),
     'plaintext': 'run',

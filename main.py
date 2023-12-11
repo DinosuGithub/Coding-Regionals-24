@@ -8,6 +8,7 @@ import encryption
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY')
 
+MAX_USERNAME_LENGTH = 20
 
 @app.before_request
 def before_request():
@@ -72,6 +73,10 @@ def signup():
 
     if login_data.is_valid_login(formUsername):
       flash(f'An account called "{formUsername}" already exists.')
+      return redirect(url_for('signup'))
+    
+    if len(formUsername) > MAX_USERNAME_LENGTH:
+      flash(f'Please choose a username less than {MAX_USERNAME_LENGTH} characters long.')
       return redirect(url_for('signup'))
 
     login_data.create_account(formUsername)
