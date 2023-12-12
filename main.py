@@ -145,4 +145,4 @@ def challenge_leaderboard(challenge_num):
   return render_template('challenge_leaderboard.html', leaderboard=challenge_data.challenge_leaderboard(challenge_num), challenge_data=sendable_challenge_data(challenge_num))
 
 
-app.run(host='0.0.0.0', port=8080, debug=True)
+app.run(host='0.0.0.0', port=8080)
