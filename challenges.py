@@ -41,11 +41,11 @@ challenges = [
   },
   {
     'name': 'Hash (LCG)',
-    'description': f'This hash is based off of the linear congruential generator (LCG), a pseudorandom number generation algorithm. Pseudorandom number generators produce seemingly-random numbers based on a starting number (seed). Here is the process for encoding this hash:<br><br>1. Encode the message in A1Z26. That is, A = 01, B = 02, etc. For example, "hello" becomes "0805121215."<br>2. Feed this encoded number through {lcg_iterations} loops of the LCG formula, r_{{n + 1}} = a * r_{{n}} + c (mod m), where a, c, and m are constants.<br><br>By this algorithm, which word gets encoded to the encrypted message below? (Hint: the word is somewhere on this page.) Here are the values of a, c, and m used in the below encryption:<br><table><tr><td>a</td><td>{lcg_a}</td></tr><tr><td>c</td><td>{lcg_c}</td></tr><tr><td>m</td><td>{lcg_m}</td></tr></table>',
+    'description': f'This hash is based off of the linear congruential generator (LCG), a pseudorandom number generation algorithm. Pseudorandom number generators produce seemingly-random numbers based on a starting number (seed). Here is the process for encoding this hash:<br><ol><li>Encode the message in A1Z26. That is, A = 01, B = 02, etc. For example, "hello" becomes "0805121215."</li><li>Feed this encoded number through {lcg_iterations} loops of the LCG formula, r<sub>n + 1</sub> = a * r<sub>n</sub> + c (mod m), where a, c, and m are constants.</li></ol>By this algorithm, which word gets encoded to the encrypted message below? (Hint: the word is somewhere on this page.) Here are the values of a, c, and m used in the below encryption:<br><table><tr><td>a</td><td>{lcg_a}</td></tr><tr><td>c</td><td>{lcg_c}</td></tr><tr><td>m</td><td>{lcg_m}</td></tr></table>',
     'encode': lambda text: encryption.encode_lcg_message(text, lcg_a, lcg_c, lcg_m, lcg_iterations),
     'decode': None, # This is not a reversible algorithm!
     'plaintext': 'process',
-    'hint': 'It is not easy to reverse this algorithm. Try using brute force, since you know the answer is on this page. Remember that incorrect entries are recorded and make your score worse!'
+    'hint': 'It is not easy to reverse this algorithm. Try using brute force (checking every possible answer), since you know the answer is one of the words above. Remember that incorrect entries are recorded and make your score worse!'
   },
   {
     'name': 'RSA',

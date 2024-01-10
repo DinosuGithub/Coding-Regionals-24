@@ -10,7 +10,7 @@ import encryption
 ``` python
 shift = 18
 encoded = encryption.encode_caesar_cipher('my message', shift)
-decoded = encryption.decode_caesar_cipher(encrypted, shift)
+decoded = encryption.decode_caesar_cipher(encoded, shift)
 ```
 
 ## Vigenere Cipher
