@@ -55,4 +55,12 @@ challenges = [
     'plaintext': 'run',
     'hint': 'From the table, the only information you need is your private exponent and public modulus.'
   },
+  {
+    'name': 'Binary',
+    'description': f'In binary encoding, each character is encoded into a binary (base 2) string of length 8. The binary value of each character is determined by converting its ASCII value from base 10 to binary.',
+    'encode': lambda text: encryption.encode_binary(text),
+    'decode': lambda text: encryption.decode_binary(text),
+    'plaintext': 'Did that make you feel like a hacker?',
+    'hint': 'In this encoding, capitalization matters, and punctuation is encoded like any other character.'
+  },
 ]

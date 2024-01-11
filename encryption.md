@@ -48,6 +48,12 @@ encoded = encryption.encode_rsa_message('wow', public_key) # The concatenated A1
 decoded = encryption.int_to_message(rsa_sender.decode_message(encoded))
 ```
 
+## Binary
+``` python
+encoded = encryption.encode_binary('my message')
+decoded = encryption.decode_binary(encoded)
+```
+
 
 # All Encryption Documentation*
 *See above examples first. Most of the section below is not necessary to be understood by the module user.

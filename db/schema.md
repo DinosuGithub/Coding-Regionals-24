@@ -1,5 +1,7 @@
 # Database Schema
 
+The database used for this application is MongoDB.
+
 ## Database: "users"
 ### Collection: "login"
 ```

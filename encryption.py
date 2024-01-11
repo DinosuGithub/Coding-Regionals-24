@@ -91,7 +91,6 @@ def encode_polybius_cipher(text):
 def decode_polybius_cipher(text):
   return handle_cipher(text, None, decode_polybius_char, 2, list('12345'))
 
-
 # Non-substitution ciphers
 
 # Message to concatenated A1Z26
@@ -174,3 +173,31 @@ class RSASender:
 def encode_rsa_message(message, public_key):
   int_message = message_to_int(message)
   return (int_message ** public_key[1]) % public_key[0]
+
+
+
+def char_to_binary(char):
+  ascii_value = ord(char)
+  binary_value = ''
+
+  for i in range(8):
+    power = 2 ** (7 - i)
+    new_digit = ascii_value // power
+    binary_value += str(new_digit)
+    ascii_value -= new_digit * power
+
+  return binary_value
+
+def binary_to_char(binary):
+  ascii_value = 0
+
+  for digit_i, digit in enumerate(binary):
+    ascii_value += int(digit) * 2 ** (7 - digit_i)
+
+  return chr(ascii_value)
+
+def encode_binary(text):
+  return ' '.join([char_to_binary(char) for char in text])
+
+def decode_binary(text):
+  return ''.join([binary_to_char(char) for char in text.split(' ')])
