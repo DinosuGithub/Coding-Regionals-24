@@ -67,10 +67,10 @@ challenges = [
   },
   {
     'name': 'A1Z26',
-    'description': f'In A1Z26 encoding, each letter is encoded to its position in the alphabet. For example, "hello" becomes "{encryption.encode_a1z26("hello")}." Note that spaces are not encoded, so letters are separated by spaces in the ciphertext',
+    'description': f'In A1Z26 encoding, each letter is encoded to its position in the alphabet. For example, "hello" becomes "{encryption.encode_a1z26("hello")}."',
     'encode': lambda text: encryption.encode_a1z26(text),
     'decode': lambda text: encryption.decode_a1z26(text),
-    'plaintext': 'hello world',
-    'hint': 'HINT'
+    'plaintext': 'This cipher is not very secure.',
+    'hint': 'Spaces are not encoded, so letters are separated by spaces in the ciphertext.'
   }
 ]
