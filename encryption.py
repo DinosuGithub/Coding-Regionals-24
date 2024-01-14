@@ -11,21 +11,27 @@ def normalize(text, allowed_chars=alphabet + [' ']):
   return normalized
 
 def check_answer(response, answer):
-  return normalize(response) == normalize(answer)
+  return normalize(response) == normalize(answer)  
 
 # Substitution ciphers
 
 # Function to handle encoding/decoding for substitution ciphers
-def handle_cipher(text, key, char_algorithm, char_length=1, non_punctuation=alphabet):
+def handle_cipher(text, key, char_algorithm, char_length=1, non_punctuation=alphabet, encode_separator='', decode_separator=''):
   uppercase = text.upper()
+  
   if isinstance(key, str):
     key = key.upper()
 
   result = ''
-
+  
   encountered_letters = 0
   new_chars = ''
-  for char in uppercase:
+
+  non_punctuation_count = [char in non_punctuation for char in uppercase].count(True) // char_length # Number of non-punctuation characters in text
+
+  handled_chars = 0
+  
+  for char_i, char in enumerate(uppercase):
     if char in non_punctuation:
       if encountered_letters % char_length == 0:
         new_chars = ''
@@ -33,10 +39,13 @@ def handle_cipher(text, key, char_algorithm, char_length=1, non_punctuation=alph
       new_chars += char
       
       if encountered_letters % char_length == char_length - 1:
+        handled_chars += 1
         result += char_algorithm(new_chars, key, encountered_letters)
+        if handled_chars != non_punctuation_count:
+          result += encode_separator
 
       encountered_letters += 1
-    else:
+    elif encode_separator == '' and char != decode_separator:
       result += char
 
   return result
@@ -72,6 +81,12 @@ def decode_polybius_char(chars, key, encountered_letters):
   
   return alphabet[alphabet_ind]
 
+def encode_a1z26_char(char, key, encountered_letters):
+  return str(alphabet.index(char) + 1).rjust(2, '0')
+
+def decode_a1z26_char(chars, key, encountered_letters):
+  return alphabet[int(chars) - 1]
+
 
 def encode_caesar_cipher(text, offset):
   return handle_cipher(text, offset, encode_caesar_char)
@@ -86,27 +101,31 @@ def decode_vigenere_cipher(text, key):
   return handle_cipher(text, key, decode_vigenere_char)
 
 def encode_polybius_cipher(text):
-  return handle_cipher(text, None, encode_polybius_char)
+  return handle_cipher(text, None, encode_polybius_char, 1, alphabet, ' ')
 
 def decode_polybius_cipher(text):
-  return handle_cipher(text, None, decode_polybius_char, 2, list('12345'))
+  return handle_cipher(text, None, decode_polybius_char, 2, list('12345'), '', ' ')
+
+def encode_a1z26(text):
+  return handle_cipher(text, None, encode_a1z26_char, 1, alphabet, ' ')
+
+def decode_a1z26(text):
+  return handle_cipher(text, None, decode_a1z26_char, 2, list('0123456789'), '', ' ')
+
 
 # Non-substitution ciphers
 
 # Message to concatenated A1Z26
 def message_to_int(message):
-  message = message.upper()
-  message_int = ''
-  for char in message:
-    if char in alphabet:
-      message_int += str(alphabet.index(char) + 1).rjust(2, '0')
-  
-  return int(message_int)
+  return int(handle_cipher(message, None, encode_a1z26_char, 1, alphabet).replace(' ', ''))
 
 # Concatenated A1Z26 to message
 def int_to_message(integer):
-  integer = str(integer)
-  return ''.join([alphabet[int(integer[i:i + 2]) - 1] for i in range(0, len(integer), 2)])
+  encoded = str(integer)
+  if len(encoded) % 2 == 1:
+    encoded = '0' + encoded
+  
+  return handle_cipher(encoded, None, decode_a1z26_char, 2, list('0123456789'))
 
 
 def generate_lcg_random(seed, a, c, m):

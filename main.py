@@ -107,6 +107,8 @@ def sendable_challenge_data(challenge_num):
 def get_challenge(challenge_num):
   if challenge_num < 1:
     return 'Invalid URL. Challenge number must be at least 1.'
+  elif challenge_num > len(challenges.challenges):
+    return f'Invalid URL. There are only {len(challenges.challenges)} challenges.'
   
   completed = challenge_data.completed_challenges(session['user_id'])
   if challenge_num in completed:

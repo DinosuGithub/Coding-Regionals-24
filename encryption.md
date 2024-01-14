@@ -45,13 +45,19 @@ public_key = sender.create_public_key(public_exponent)
 private_exponent = sender.create_private_exponent(public_exponent)
 
 encoded = encryption.encode_rsa_message('wow', public_key) # The concatenated A1Z26 form of the input must be less than the public modulus (public_key[0])
-decoded = encryption.int_to_message(rsa_sender.decode_message(encoded))
+decoded = encryption.int_to_message(sender.decode_message(encoded))
 ```
 
 ## Binary
 ``` python
 encoded = encryption.encode_binary('my message')
 decoded = encryption.decode_binary(encoded)
+```
+
+## A1Z26
+``` python
+encoded = encryption.encode_a1z26('my message')
+decoded = encryption.decode_a1z26(encoded)
 ```
 
 
@@ -77,7 +83,7 @@ _*Note that using the full string functions calls other functions appropriately.
 
 ## Non-substitution ciphers:
 ## General functions:
-* `message_to_int`: converts a message string to concatenated A1Z26 (ex. "ABCXYZ" = 010203242526)
+* `message_to_int`: converts a message string to concatenated A1Z26 (ex. "ABCXYZ" = 10203242526. There is no 0 at the beginning because this function returns an int.)
 * `int_to_message`: converts concatenated A1Z26 to a message string
 
 ## LCG (Linear Congruential Generator) Hash:

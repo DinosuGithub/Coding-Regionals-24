@@ -1,3 +1,4 @@
+from flask import url_for
 import encryption # See encryption.py
 
 caesar_offset = 18
@@ -13,6 +14,7 @@ rsa_sender = encryption.RSASender(397, 587)
 rsa_public_exponent = rsa_sender.public_exponent_options()[100]
 rsa_public_key = rsa_sender.create_public_key(rsa_public_exponent)
 rsa_private_exponent = rsa_sender.create_private_exponent(rsa_public_exponent)
+
 
 challenges = [
   {
@@ -33,7 +35,7 @@ challenges = [
   },
   {
     'name': 'Polybius Square',
-    'description': 'The Polybius Square cipher is a substitution cipher encoded using a 5x5 grid of letters. I and J are encoded the same way. Determine how this encoding works, and use it to decode the encrypted message.',
+    'description': 'The Polybius Square cipher is a substitution cipher encoded using a 5x5 grid of letters. I and J are encoded the same way. Determine how this encoding works, and use it to decode the encrypted message. Note that spaces are not encoded, so letters are separated by spaces in the ciphertext.',
     'encode': lambda text: encryption.encode_polybius_cipher(text),
     'decode': lambda text: encryption.decode_polybius_cipher(text),
     'plaintext': 'The next cipher will be much more modern.',
@@ -41,7 +43,7 @@ challenges = [
   },
   {
     'name': 'Hash (LCG)',
-    'description': f'This hash is based off of the linear congruential generator (LCG), a pseudorandom number generation algorithm. Pseudorandom number generators produce seemingly-random numbers based on a starting number (seed). Here is the process for encoding this hash:<br><ol><li>Encode the message in A1Z26. That is, A = 01, B = 02, etc. For example, "hello" becomes "0805121215."</li><li>Feed this encoded number through {lcg_iterations} loops of the LCG formula, r<sub>n + 1</sub> = a * r<sub>n</sub> + c (mod m), where a, c, and m are constants.</li></ol>By this algorithm, which word gets encoded to the encrypted message below? (Hint: the word is somewhere on this page.) Here are the values of a, c, and m used in the below encryption:<br><table><tr><td>a</td><td>{lcg_a}</td></tr><tr><td>c</td><td>{lcg_c}</td></tr><tr><td>m</td><td>{lcg_m}</td></tr></table>',
+    'description': f'This hash is based off of the linear congruential generator (LCG), a pseudorandom number generation algorithm. Pseudorandom number generators produce seemingly-random numbers based on a starting number (seed). Here is the process for encoding this hash:<br><ol><li>Encode the message in <a href="/challenge/7">A1Z26</a>. That is, A = 01, B = 02, etc. For example, "hello" becomes "0805121215."</li><li>Feed this encoded number through {lcg_iterations} loops of the LCG formula, r<sub>n + 1</sub> = a * r<sub>n</sub> + c (mod m), where a, c, and m are constants.</li></ol>By this algorithm, which word gets encoded to the encrypted message below? (Hint: the word is somewhere on this page.) Here are the values of a, c, and m used in the below encryption:<br><table><tr><td>a</td><td>{lcg_a}</td></tr><tr><td>c</td><td>{lcg_c}</td></tr><tr><td>m</td><td>{lcg_m}</td></tr></table>',
     'encode': lambda text: encryption.encode_lcg_message(text, lcg_a, lcg_c, lcg_m, lcg_iterations),
     'decode': None, # This is not a reversible algorithm!
     'plaintext': 'process',
@@ -49,7 +51,7 @@ challenges = [
   },
   {
     'name': 'RSA',
-    'description': f'The commander of the administration has sent you an urgent message encrypted with RSA. Use your private and public RSA information below to read his instructions. When you have the message in number form, decode it using A1Z26 (ex. 0809 = "hi"). Hint: use <a href="https://www.wolframalpha.com/" target="_blank">Wolfram Alpha</a> for large math computations.<table><tr><td>Private exponent:</td><td>{rsa_private_exponent}</td></tr><tr></tr><tr><td>Public modulus:</td><td>{rsa_public_key[0]}</td></tr><td>Public exponent:</td><td>{rsa_public_key[1]}</td></table>',
+    'description': f'The commander of the administration has sent you an urgent message encrypted with RSA. Use your private and public RSA information below to read his instructions. When you have the message in number form, decode it using <a href="/challenge/7">A1Z26</a> (ex. 0809 = "hi"). Hint: use <a href="https://www.wolframalpha.com/" target="_blank">Wolfram Alpha</a> for large math computations.<table><tr><td>Private exponent:</td><td>{rsa_private_exponent}</td></tr><tr></tr><tr><td>Public modulus:</td><td>{rsa_public_key[0]}</td></tr><td>Public exponent:</td><td>{rsa_public_key[1]}</td></table>',
     'encode': lambda text: encryption.encode_rsa_message(text, rsa_public_key),
     'decode': lambda text: encryption.int_to_message(rsa_sender.decode_message(int(text))),
     'plaintext': 'run',
@@ -57,10 +59,18 @@ challenges = [
   },
   {
     'name': 'Binary',
-    'description': f'In binary encoding, each character is encoded into a binary (base 2) string of length 8. The binary value of each character is determined by converting its ASCII value from base 10 to binary.',
+    'description': 'In binary encoding, each character is encoded into a binary (base 2) string of length 8. The binary value of each character is determined by converting its ASCII value from base 10 to binary.',
     'encode': lambda text: encryption.encode_binary(text),
     'decode': lambda text: encryption.decode_binary(text),
     'plaintext': 'Did that make you feel like a hacker?',
     'hint': 'In this encoding, capitalization matters, and punctuation is encoded like any other character.'
   },
+  {
+    'name': 'A1Z26',
+    'description': f'In A1Z26 encoding, each letter is encoded to its position in the alphabet. For example, "hello" becomes "{encryption.encode_a1z26("hello")}." Note that spaces are not encoded, so letters are separated by spaces in the ciphertext',
+    'encode': lambda text: encryption.encode_a1z26(text),
+    'decode': lambda text: encryption.decode_a1z26(text),
+    'plaintext': 'hello world',
+    'hint': 'HINT'
+  }
 ]
