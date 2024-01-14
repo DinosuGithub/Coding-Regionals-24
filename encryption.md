@@ -45,7 +45,7 @@ public_key = sender.create_public_key(public_exponent)
 private_exponent = sender.create_private_exponent(public_exponent)
 
 encoded = encryption.encode_rsa_message('wow', public_key) # The concatenated A1Z26 form of the input must be less than the public modulus (public_key[0])
-decoded = encryption.int_to_message(sender.decode_message(encoded))
+decoded = encryption.decode_rsa_message(encoded, sender)
 ```
 
 ## Binary
@@ -62,21 +62,31 @@ decoded = encryption.decode_a1z26(encoded)
 
 
 # All Encryption Documentation*
-*See above examples first. Most of the section below is not necessary to be understood by the module user.
+_*See above examples first. Most of the section below is not necessary to be understood by the module user._
 
 ## General functions:
 * `normalize`: removes non-alphabet characters except space, converts to uppercase
 * `check_answer`: checks if the normalized values of two inputs are equal
 
 ## Substitution ciphers*:
-_*Note that using the full string functions calls other functions appropriately._
+_*Note that using the below full string functions calls other functions appropriately._
 
 ### General functions:
-* `handle_cipher`: converts every group of `char_length` characters in a string to a different string with the function `char_algorithm`
+* `handle_cipher`: converts every group of `char_length` characters in a string to a different group of characters determined by the function `char_algorithm` (_used for both encoding and decoding_)
+  - `text`: text to be encoded/decoded
+  - `key`: key to be passed into `char_algorithm` if the algorithm requires a key
+  - `char_algorithm`: function to encode/decode a single character
+    * parameter 1: string corresponding to one letter in the plaintext
+    * parameter 2: key (passed directly from `handle_cipher`)
+    * parameter 3: number of letters encountered so far (not including current one) (ex. to determine which letter of the key to use when encoding the Vigenere cipher)
+    * return value: mapping of a character in `text` to an encoded/decoded character
+  - `char_length`: the length of each substring of `text` corresponding to a single plaintext character
+  - `non_punctuation`: input characters to not ignore when encoding/decoding (ex. alphabet for encoding/decoding Caesar Cipher, digits 0-9 for decoding A1Z26)
+  - `encode_separator`: string to join characters in output
+  - `decode_separator`: string that separates different characters in input
 
 ### Character functions (ex. `encode_caesar_char`, `decode_polybius_char`, etc.):
-* Each function returns output character(s) from input character(s)
-* Passed into `handle_cipher` as `char_algorithm` parameter
+* See `char_algorithm` information above
 
 ### Full string functions (ex. `encode_caesar_cipher`, `decode_polybius_cipher`):
 * Each function returns the encoded/decoded output of the entire input text
@@ -101,3 +111,10 @@ _*Note that using the full string functions calls other functions appropriately.
 
 ### `encode_rsa_message`:
 * Generates message encrypted with receiver public key
+* Used by Bob*
+
+### `decode_rsa_message`:
+* Decrypts message received by a sender
+* Used by Alice*
+
+_*Assume Alice generates a public key and Bob sends her a message_

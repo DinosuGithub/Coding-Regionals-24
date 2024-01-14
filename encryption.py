@@ -193,6 +193,8 @@ def encode_rsa_message(message, public_key):
   int_message = message_to_int(message)
   return (int_message ** public_key[1]) % public_key[0]
 
+def decode_rsa_message(message, sender):
+  return int_to_message(sender.decode_message(int(message)))
 
 
 def char_to_binary(char):

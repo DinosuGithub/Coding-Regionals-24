@@ -53,7 +53,7 @@ challenges = [
     'name': 'RSA',
     'description': f'The commander of the administration has sent you an urgent message encrypted with RSA. Use your private and public RSA information below to read his instructions. When you have the message in number form, decode it using <a href="/challenge/7">A1Z26</a> (ex. 0809 = "hi"). Hint: use <a href="https://www.wolframalpha.com/" target="_blank">Wolfram Alpha</a> for large math computations.<table><tr><td>Private exponent:</td><td>{rsa_private_exponent}</td></tr><tr></tr><tr><td>Public modulus:</td><td>{rsa_public_key[0]}</td></tr><td>Public exponent:</td><td>{rsa_public_key[1]}</td></table>',
     'encode': lambda text: encryption.encode_rsa_message(text, rsa_public_key),
-    'decode': lambda text: encryption.int_to_message(rsa_sender.decode_message(int(text))),
+    'decode': lambda text: encryption.decode_rsa_message(text, rsa_sender),
     'plaintext': 'run',
     'hint': 'From the table, the only information you need is your private exponent and public modulus.'
   },
