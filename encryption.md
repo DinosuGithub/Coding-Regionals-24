@@ -118,3 +118,7 @@ _*Note that using the below full string functions calls other functions appropri
 * Used by Alice*
 
 _*Assume Alice generates a public key and Bob sends her a message_
+
+## Binary Encoding:
+* `encode_binary`: encode text to binary string
+* `decode_binary`: decode binary string to text
