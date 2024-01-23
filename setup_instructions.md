@@ -1,5 +1,5 @@
 # Running the Server
-These are the instructions to start your own instance of the server for this site. This is NOT NECESSARY for use unless you cannot access the live version.
+**These are the instructions to start your own instance of the server for this site. This is NOT NECESSARY for use unless you want to create a new instance with your own stored data. (Judges should not need to use this.)**
 
 ## Clone
 1. Clone this repository.

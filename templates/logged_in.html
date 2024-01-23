@@ -4,8 +4,14 @@
 <div id="main-sections">
   <div id="page-nav">
     <div class="page-nav-section">
-      <a href="{{ url_for('home') }}">Home</a>
+      <div class="nav-link-container">
+        <a href="{{ url_for('home') }}">Home</a>
+      </div>
+      <div class="nav-link-container">
+        <a href="https://github.com/DinosuGithub/Coding-Regionals-24/blob/main/README.md" target="_blank">Documentation</a>
+      </div>
     </div>
+    
     <div class="page-nav-section">
       {% for challenge in all_challenges %}
         <div class="nav-link-container">
