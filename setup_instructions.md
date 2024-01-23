@@ -1,3 +1,5 @@
+[Return to Documentation home](/README.md)
+
 # Running the Server
 **These are the instructions to start your own instance of the server for this site. This is NOT NECESSARY for use unless you want to create a new instance with your own stored data. (Judges should not need to use this.)**
 

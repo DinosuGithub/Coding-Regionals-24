@@ -1,3 +1,5 @@
+[Return to Documentation home](/README.md)
+
 # Database Schema
 
 The database used for this application is MongoDB.

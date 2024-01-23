@@ -1,5 +1,7 @@
 This is documentation for [encryption.py](/encryption.py)
 
+[Return to Documentation home](/README.md)
+
 # Encoding/Decoding Examples
 Import the module:
 ``` python
