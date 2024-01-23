@@ -87,6 +87,18 @@ def encode_a1z26_char(char, key, encountered_letters):
 def decode_a1z26_char(chars, key, encountered_letters):
   return alphabet[int(chars) - 1]
 
+def encode_affine_char(char, key, encountered_letters):
+  return alphabet[(alphabet.index(char) * key[0] + key[1]) % len(alphabet)]
+
+def decode_affine_char(char, key, encountered_letters):
+  # Find modular multiplicative inverse
+  multiplicative_inverse = 1
+  while (key[0] * multiplicative_inverse) % len(alphabet) != 1:
+    multiplicative_inverse += 1
+
+  # Solve
+  return alphabet[multiplicative_inverse * (alphabet.index(char) - key[1]) % len(alphabet)]
+
 
 def encode_caesar_cipher(text, offset):
   return handle_cipher(text, offset, encode_caesar_char)
@@ -111,6 +123,13 @@ def encode_a1z26(text):
 
 def decode_a1z26(text):
   return handle_cipher(text, None, decode_a1z26_char, 2, list('0123456789'), '', ' ')
+
+def encode_affine_cipher(text, slope, intercept):
+  return handle_cipher(text, (slope, intercept), encode_affine_char)
+
+def decode_affine_cipher(text, slope, intercept):
+  return handle_cipher(text, (slope, intercept), decode_affine_char)
+
 
 
 # Non-substitution ciphers

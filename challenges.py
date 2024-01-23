@@ -15,6 +15,8 @@ rsa_public_exponent = rsa_sender.public_exponent_options()[100]
 rsa_public_key = rsa_sender.create_public_key(rsa_public_exponent)
 rsa_private_exponent = rsa_sender.create_private_exponent(rsa_public_exponent)
 
+affine_slope = 11
+affine_intercept = 6
 
 challenges = [
   {
@@ -72,5 +74,13 @@ challenges = [
     'decode': lambda text: encryption.decode_a1z26(text),
     'plaintext': 'This cipher is not very secure.',
     'hint': 'Spaces are not encoded, so letters are separated by spaces in the ciphertext.'
+  },
+  {
+    'name': 'Affine Cipher',
+    'description': f'The Affine Cipher uses a linear function to transform each letter in the plaintext. A letter in the plaintext is encoded with this process:<ol><li>Let x be the position in the alphabet of an input letter</li><li>Let y = mx + b, where m and b define the key of the cipher</li><li>The encoded letter is the letter at position y of the alphabet</li></ol>Here are the values of m and b used in the encryption below:<table><tr><td>m</td><td>{affine_slope}</td></tr><tr><td>b</td><td>{affine_intercept}</td></tr></table>',
+    'encode': lambda text: encryption.encode_affine_cipher(text, affine_slope, affine_intercept),
+    'decode': lambda text: encryption.decode_affine_cipher(text, affine_slope, affine_intercept),
+    'plaintext': 'In this cipher, the value of m has to be coprime with the length of the alphabet.',
+    'hint': 'Do not use division to decode a letter. In modular arithmetic, one multiplicative inverse of x (mod 26) is the number n that you can multiply x by such that nx is 1 more than a multiple of 26.'
   }
 ]

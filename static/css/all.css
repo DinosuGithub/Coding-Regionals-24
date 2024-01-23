@@ -82,6 +82,10 @@ div.page-nav-section + div.page-nav-section {
   margin-bottom: 0.5rem;
 }
 
+table {
+  margin: auto;
+}
+
 table, tr {
   border-collapse: collapse;
   border: 2px solid;
