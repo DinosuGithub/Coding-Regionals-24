@@ -60,6 +60,14 @@ encoded = encryption.encode_a1z26('my message')
 decoded = encryption.decode_a1z26(encoded)
 ```
 
+## Affine Cipher
+``` python
+m = 11
+b = 6
+encoded = encryption.encode_affine_cipher('my message', m, b)
+decoded = encryption.decode_affine_cipher(encoded, m, b)
+```
+
 
 # All Encryption Documentation*
 _*See above examples first. Most of the section below is not necessary to be understood by the module user._
