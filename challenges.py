@@ -82,5 +82,13 @@ challenges = [
     'decode': lambda text: encryption.decode_affine_cipher(text, affine_slope, affine_intercept),
     'plaintext': 'In this cipher, the value of m has to be coprime with the length of the alphabet.',
     'hint': 'Do not use division to decode a letter. In modular arithmetic, one multiplicative inverse of x (mod 26) is the number n that you can multiply x by such that nx is 1 more than a multiple of 26.'
+  },
+  {
+    'name': 'Spelling Alphabet',
+    'description': f'One use of the spelling alphabet is to clearly communicate words between people who are talking over a shaky phone line. Figure out the message encrypted in the text below.',
+    'encode': lambda text: encryption.encode_spelling_alphabet(text),
+    'decode': lambda text: encryption.decode_spelling_alphabet(text),
+    'plaintext': 'Nice work! Or should I say, "bravo!"',
+    'hint': 'This cipher is not very complicated! Observe how some words appear many times.'
   }
 ]

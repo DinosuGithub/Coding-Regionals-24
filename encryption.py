@@ -1,5 +1,8 @@
 alphabet = list('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
 
+phonetic_alphabet = 'Alfa, Bravo, Charlie, Delta, Echo, Foxtrot, Golf, Hotel, India, Juliett, Kilo, Lima, Mike, November, Oscar, Papa, Quebec, Romeo, Sierra, Tango, Uniform, Victor, Whiskey, X-ray, Yankee, Zulu'.split(', ')
+
+
 def normalize(text, allowed_chars=alphabet + [' ']):
   text = text.upper()
   
@@ -99,6 +102,9 @@ def decode_affine_char(char, key, encountered_letters):
   # Solve
   return alphabet[multiplicative_inverse * (alphabet.index(char) - key[1]) % len(alphabet)]
 
+def encode_spelling_alphabet_char(char, key, encountered_letters):
+  return phonetic_alphabet[alphabet.index(char)]
+
 
 def encode_caesar_cipher(text, offset):
   return handle_cipher(text, offset, encode_caesar_char)
@@ -130,6 +136,11 @@ def encode_affine_cipher(text, slope, intercept):
 def decode_affine_cipher(text, slope, intercept):
   return handle_cipher(text, (slope, intercept), decode_affine_char)
 
+def encode_spelling_alphabet(text):
+  return handle_cipher(text, None, encode_spelling_alphabet_char, 1, alphabet, encode_separator=' ')
+
+def decode_spelling_alphabet(text):
+  return ''.join([letter[0].upper() for letter in text.split(' ')])
 
 
 # Non-substitution ciphers

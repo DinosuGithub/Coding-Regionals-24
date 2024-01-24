@@ -70,6 +70,12 @@ encoded = encryption.encode_affine_cipher('my message', m, b)
 decoded = encryption.decode_affine_cipher(encoded, m, b)
 ```
 
+## Spelling Alphabet
+``` python
+encoded = encode_spelling_alphabet('my message')
+decoded = decode_spelling_alphabet(encoded)
+```
+
 
 # All Encryption Documentation*
 _*See above examples first. Most of the section below is not necessary to be understood by the module user._
