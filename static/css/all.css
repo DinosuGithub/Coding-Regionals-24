@@ -23,6 +23,12 @@ body {
   font-size: 2rem;
 }
 
+@media (max-width: 1200px) {
+  body {
+    font-size: 1.5rem;
+  }
+}
+
 #main-sections {
   display: flex;
   flex-wrap: nowrap;
@@ -46,6 +52,16 @@ body {
   border-radius: 1rem;
   margin-right: 1rem;
   white-space: nowrap;
+}
+
+@media (max-width: 700px) {
+  #page-nav {
+    white-space: wrap;
+  }
+  .nav-link-container {
+    padding-left: 1rem;
+    text-indent: -1rem;
+  }
 }
 
 #page-content {
