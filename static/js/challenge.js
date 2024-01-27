@@ -12,17 +12,17 @@ const hintDelay = 60;
 submissionForm.addEventListener('submit', (event) => {
   event.preventDefault();
   
-  let data = new FormData(submissionForm);
+  let formData = new FormData(submissionForm);
   
   fetch(submissionForm.action, {
     method: submissionForm.method,
-    body: data
+    body: formData
   })
     .then(response => response.json())
     .then((data) => {
       let isCorrect = data.is_correct;
       
-      correctnessMessage.textContent = isCorrect ? 'Nicely done! Challenge marked as complete.' : 'That is incorrect.';
+      correctnessMessage.textContent = isCorrect ? 'Nicely done! Challenge marked as complete.' : `"${formData.get('submission')}" is incorrect.`;
 
       if (isCorrect) {
         challengeIsCompleted = 1;
